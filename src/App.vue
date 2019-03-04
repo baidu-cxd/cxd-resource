@@ -1,31 +1,63 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div id="app" :class="[isHome(),isTop()]">
+    <CxdHeader/>
+    <div class="contents">
+       <router-view/>
     </div>
-    <router-view/>
+    <Footer/>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import CxdHeader from './components/CxdHeader.vue'
+import Footer from './components/Footer.vue'
+export default {
+  data() {
+    return {
+      scrollTop : '0'
+    }
+  },
+  components: {
+    CxdHeader,
+    Footer
+  },
+  mounted(){
+      window.addEventListener('scroll',this.handleScroll,true)
+   },
+  methods: {
+    isHome(){
+      if (this.$route.path == '/') {
+        return 'home'
+      }
+    },
+    handleScroll(){
+      this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+    },
+    isTop(){
+      if (this.scrollTop <= '30'){
+        return 'top'
+      }
+    }
+  }
 }
-#nav {
-  padding: 30px;
-}
+</script>
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+<style lang="stylus">
+body
+    margin 0
+    padding 0
+  html, body, #app
+    width 100%
+    height 100%
+  a
+    text-decoration-line none
+  h1, h2, h3, h4, h5, p, a, span 
+    font-family: "PingFang SC", "SF Pro SC","SF Pro Text","Helvetica Neue",  Helvetica,  Roboto, 'Arial','microsoft yahei ui',"Microsoft YaHei",SimSun, sans-serif;
+    /*修改浏览器渲染字体效果*/ 
+    -moz-osx-font-smoothing: grayscale;  
+    -webkit-font-smoothing: antialiased; 
+  .contents
+    min-height 60%
 </style>
+
