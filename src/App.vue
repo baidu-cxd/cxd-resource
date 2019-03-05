@@ -57,7 +57,7 @@ body
     height 100%
   a
     text-decoration-line none
-  h1, h2, h3, h4, h5, p, a, span 
+  h1, h2, h3, h4, h5, p, a, span, div 
     font-family: "PingFang SC", "SF Pro SC","SF Pro Text","Helvetica Neue",  Helvetica,  Roboto, 'Arial','microsoft yahei ui',"Microsoft YaHei",SimSun, sans-serif;
     /*修改浏览器渲染字体效果*/ 
     -moz-osx-font-smoothing: grayscale;  

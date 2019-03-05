@@ -72,11 +72,11 @@ export default {
     transform translateY(0px)
 .bucket-enter-to
   opacity 1
-.fade-enter-active
+.bucket-enter-active
   transition: opacity .3s;
 .bucket-leave-to
   opacity 0
-.fade-leave-active
+.bucket-leave-active
   transition: opacity .3s;
 </style>
 

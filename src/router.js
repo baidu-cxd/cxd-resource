@@ -24,6 +24,6 @@ export default new Router({
       path: '/bucket/*',
       name: 'bucket',
       component: FileList
-    }
+    },
   ]
 })

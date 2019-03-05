@@ -5,9 +5,10 @@ export function floderFilter(objects) {
   objects.map(object=>{
     if (object.key.endsWith('/')) {
       let folder = {}
-      folder.key = object.key
+      let folderKey = object.key.substring(0,object.key.length-1)
+      folder.key = folderKey
       // 部分英文路径需要翻译，准备一个 name 属性用来翻译
-      folder.name = object.key
+      folder.name = folderKey
       folders.push(folder)
     }
   })
@@ -25,7 +26,7 @@ export function objectFilter(objects) {
         // 获得 name 和 src
         const data = resolveObjectName(object.key)
         object.name = data.name
-        object.folder = data.folder
+        object.folder = data.folder.substring(1,object.key.length)
         let src = new Object
         src.kind = data.kind
         src.link = object.src
@@ -55,9 +56,9 @@ export function objectFilter(objects) {
       // 默认背景图也就是下载链接数组的第一位
       object.img = object.src[0].link
       // 如果下载链接的第一位是 pptx/keynote 之类的文件的话，显示成默认图标
-      if (object.src[0].kind === 'ppt' || object.src[0].kind === 'pptx'){
+      if (object.src[0].kind === '.ppt' || object.src[0].kind === '.pptx'){
         object.img = 'https://baiduyun-guideline.cdn.bcebos.com/public/ppt.png'
-      } else if (object.src[0].kind === 'key' ||object.src[0].kind === 'keynote') {
+      } else if (object.src[0].kind === '.key' ||object.src[0].kind === '.keynote') {
         object.img = 'https://baiduyun-guideline.cdn.bcebos.com/public/keynote.png'
       }
     })
