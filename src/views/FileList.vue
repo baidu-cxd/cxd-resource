@@ -1,10 +1,14 @@
 <template>
-    <div class="file-list">
-        这是文件列表
+    <div class="file-list" :class="resolveClass()">
+      <FileItem 
+        v-bind:key="file.key" 
+        v-for="file in fileList"
+        :object="file"/>
     </div>
 </template>
 
 <script>
+import FileItem from '@/components/FileItem.vue';
 import api from '@/api/api';
 import {CDNHost, BucketName} from '@/config';
 import {floderFilter,objectFilter} from '@/util';
@@ -18,10 +22,19 @@ export default {
     mounted() {
         this.initData();
     },
+    components: {
+        FileItem
+    },
     methods: {
+        resolveClass() {
+            let path = this.$route.path
+            path = path.replace(/\//g, '-').slice(1,path.length)
+            return path
+        },
         initData() {
+            const thisBucketName = this.$route.params.pathMatch
             // 计算出 bucket 的名称
-            const bucketName = BucketName + '-product'; 
+            const bucketName = BucketName + '-' + thisBucketName; 
             // 获得文件列表         
             api.listObjects(bucketName).then(data => {
                 // 生成单个文件的下载链接
@@ -29,10 +42,15 @@ export default {
                     object.src = 'http://' + bucketName + CDNHost + object.key; 
                 });
                 // 在文件中排除并获得文件夹
+                // 文件夹属性的数据
+                // name: 文件夹名称，用于显示成易读的文本
+                // key: 文件夹数据原名
                 this.folderList = floderFilter(data)
                 // 整理单个文件的数据结构
                 // name: 名称
-                // src: 下载链接，为一个对象，里面与各种不同的文件类型
+                // kind: 类型
+                // folder : 字文件夹名
+                // src: 下载链接，为一个对象，里面与各种不同的文件类型，第一个数据为 kind 第二个数据为 link
                 //       .svg/eps  :  矢量文件
                 //       @2x.jpg   :  倍率文件
                 //       @w.jpg    :  反白
@@ -43,7 +61,7 @@ export default {
                 const filelist = objectFilter(data)
                 this.fileList = filelist;
                 // console.log(this.folderList)
-                // console.log(this.fileList)
+                console.log(this.fileList)
             });
         }
     }
