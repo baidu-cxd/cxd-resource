@@ -118,7 +118,7 @@ export default {
                 const filelist = objectFilter(data)
                 this.fileList = filelist;
                 // console.log(this.folderList)
-                console.log(this.fileList)
+                // (this.fileList)
             });
         }
     }
@@ -167,7 +167,7 @@ export default {
       float left
       margin 22px
       position relative
-      border-bottom 1px solid #000
+      border-bottom 1px solid #999
       input
         padding 0 
         height 32px
@@ -183,7 +183,7 @@ export default {
         height 14px
         position absolute
         top 10px
-        right 12px
+        right 2px
         background url(http://baiduyun-guideline.cdn.bcebos.com/public/icon-bucket/search.svg)
       &::placeholder 
         color: #999!important;

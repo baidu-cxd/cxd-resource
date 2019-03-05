@@ -1,6 +1,7 @@
 <template>
   <div id="app" :class="[isHome(),isTop()]">
     <CxdHeader/>
+    <Module/>
     <div class="contents">
       <transition name="home">
         <router-view/>
@@ -12,6 +13,7 @@
 </template>
 
 <script>
+import Module from './components/Module.vue'
 import CxdHeader from './components/CxdHeader.vue'
 import Footer from './components/Footer.vue'
 import SideComponent from './components/SideComponent.vue'
@@ -24,7 +26,8 @@ export default {
   components: {
     CxdHeader,
     Footer,
-    SideComponent
+    SideComponent,
+    Module
   },
   mounted(){
       window.addEventListener('scroll',this.handleScroll,true)
