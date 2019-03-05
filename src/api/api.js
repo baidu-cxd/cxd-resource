@@ -17,16 +17,10 @@ export default new class extends BosClient {
 
     listObjects(...args) {
         return super.listObjects(...args).then(res => {
-            const folders = res.body.contents?.filter(item => item.key.charAt(item.key.length - 1) == '/');
-            const objects = res.body.contents?.filter(item => item.key.charAt(item.key.length - 1) !== '/'); 
+            const objects = res.body.contents;
             delete res.body.commonPrefixes; // eslint-disable-line no-param-reassign
             delete res.body.contents; // eslint-disable-line no-param-reassign
-            return {
-                ...res.body,
-                folders,
-                objects,
-            };
+            return objects
         });
     }
-
 }

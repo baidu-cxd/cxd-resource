@@ -7,6 +7,8 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "vue-clipboard2": "^0.2.1",
+    "@baiducloud/sdk": "^1.0.0-rc.4",
     "vue": "^2.6.6",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

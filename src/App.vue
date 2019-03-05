@@ -2,15 +2,19 @@
   <div id="app" :class="[isHome(),isTop()]">
     <CxdHeader/>
     <div class="contents">
-       <router-view/>
+      <transition name="home">
+        <router-view/>
+      </transition>
     </div>
     <Footer/>
+    <SideComponent/>
   </div>
 </template>
 
 <script>
 import CxdHeader from './components/CxdHeader.vue'
 import Footer from './components/Footer.vue'
+import SideComponent from './components/SideComponent.vue'
 export default {
   data() {
     return {
@@ -19,7 +23,8 @@ export default {
   },
   components: {
     CxdHeader,
-    Footer
+    Footer,
+    SideComponent
   },
   mounted(){
       window.addEventListener('scroll',this.handleScroll,true)
@@ -27,7 +32,7 @@ export default {
   methods: {
     isHome(){
       if (this.$route.path == '/') {
-        return 'home'
+        return 'is-home'
       }
     },
     handleScroll(){
@@ -57,7 +62,20 @@ body
     /*修改浏览器渲染字体效果*/ 
     -moz-osx-font-smoothing: grayscale;  
     -webkit-font-smoothing: antialiased; 
+    font-weight normal
   .contents
     min-height 60%
+    margin 0 80px
+    padding-top 80px
+
+// 动画
+.home-enter-active
+  transition all .2s ease-in-out .2s
+.home-leave-active
+  transition all .2s ease-in-out
+.home-enter,.home-leave-to
+  opacity 0
+.home-enter-to,.home-leave
+  opacity 1
 </style>
 

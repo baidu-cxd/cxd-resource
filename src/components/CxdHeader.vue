@@ -1,12 +1,12 @@
 <template>
     <div class="cxd-header">
-        <router-link to="./">
+        <router-link to="/">
           <img alt="logo" class="logo" src="@/assets/logo.svg">
         </router-link>
         <div class="nav">
-          <router-link to='portal'>官网资源</router-link>
-          <router-link to='console'>控制台</router-link>
-          <router-link to='brand'>品牌</router-link>
+          <router-link to='/library/portal'>官网资源</router-link>
+          <router-link to='/library/console'>控制台</router-link>
+          <router-link to='/library/brand'>品牌</router-link>
         </div>
         <div class="line"></div>
     </div>
@@ -20,6 +20,7 @@ export default {
 <style lang="stylus">
   //  顶部导航栏全局样式
   .cxd-header
+    animation header-fade-in .4s ease-in-out .4s forwards
     z-index 100
     width 100%
     height 80px
@@ -27,6 +28,8 @@ export default {
     top 0
     left 0
     transition .4s all ease-in-out .2s
+    background-color #fff
+    opacity 0
     .logo
       height 20px
       position absolute
@@ -75,8 +78,9 @@ export default {
       opacity 1
       transition .2s all ease-in-out .4s
 //  顶部导航栏动画
-.home.top
+.is-home.top
   .cxd-header
+    opacity 0
     height 122px
   .logo
     margin-left 40px
@@ -89,5 +93,15 @@ export default {
   .line
     transform scale(.8) translateY(-10  px)
     opacity 0
+
+// 动画
+
+@keyframes header-fade-in
+  0%
+    opacity 0
+    transform translateY(-40px)
+  100%
+    opacity 1
+    transform translateY(0) 
 </style>
 
