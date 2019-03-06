@@ -72,7 +72,7 @@ export default {
             }
         },
         isSearch(itemName){
-            if (itemName.indexOf(this.search) > 0){
+            if (itemName.indexOf(this.search) > -1){
                 return true
             } else if (this.search === ''){
                 return true
