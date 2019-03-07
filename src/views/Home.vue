@@ -44,7 +44,7 @@
          </svg>
         </div>
         <h3>品牌资源库</h3>
-        <p>logo，以及ppt模版</p>
+        <p>logo，图片，及 ppt 模版</p>
         <span>Link To</span>
       </router-link>
     </div>

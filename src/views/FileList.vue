@@ -18,7 +18,7 @@
       </div>
     </div>
     <!-- 文件列表 -->
-    <transition-group tag="div" class="file-list-content" 
+    <div class="file-list-content" 
       name="list" :class="resolveClass()">
       <div class="file-content"
        v-for="(file,i) in fileList"
@@ -27,7 +27,7 @@
        :style="resolveStyle(i)">
         <FileItem :object="file"/>
       </div>
-    </transition-group>
+    </div>
   </div>
 </template>
 
@@ -86,7 +86,10 @@ export default {
             return path
         },
         resolveStyle(i) {
-            return 'animation-delay:' + (20 * i ) + 'ms'
+            if(i < 20) {
+              return 'animation-delay:' + (20 * i ) + 'ms'
+            } else
+            return 'animation-delay:' + (20 * 20 ) + 'ms'
         },
         initData() {
             const thisBucketName = this.$route.params.pathMatch
@@ -147,11 +150,12 @@ export default {
         height 260px
   .file-content
     opacity 1
-    transform translateY(0px)
+    //transform translateY(0px)
+    opacity 0
     width 140px
     height 140px
     float left
-    //animation item-move-in .2s ease-in-out 
+    animation item-move-in .2s ease-in-out forwards
 
 .file-list
   .sub-title
@@ -213,7 +217,7 @@ export default {
 // 动画
 @keyframes item-move-in
   0%
-    transform translateY(0px)
+    transform translateY(20px)
     opacity 0
   100%
     transform translateY(0)
