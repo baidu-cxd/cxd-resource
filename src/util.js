@@ -61,6 +61,10 @@ export function objectFilter(objects) {
       } else if (object.src[0].kind === '.key' ||object.src[0].kind === '.keynote') {
         object.img = 'https://baiduyun-guideline.cdn.bcebos.com/public/keynote.png'
       }
+      // 如果是图片文件，生成一个预览图
+      if (object.src[0].kind === '.jpg') {
+        object.img = object.img + '@w_150'
+      }
     })
     return resolvedListObjects
   }
