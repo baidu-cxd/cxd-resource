@@ -3,6 +3,12 @@ node_modules
 /dist
 src/api/credentials.js
 
+# bos
+bos_sample_conf.py
+bos_sample_conf.pyc
+sample.log
+main.py
+
 # local env files
 .env.local
 .env.*.local
