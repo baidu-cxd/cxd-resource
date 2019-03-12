@@ -153,7 +153,7 @@ export default {
           // background-color #000
           img
             max-height 380px
-            height 100%
+            // height 100%
             display block
             margin auto
             max-width 380px

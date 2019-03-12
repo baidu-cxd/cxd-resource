@@ -2,6 +2,7 @@
   <div id="app" :class="[isHome(),isTop()]">
     <CxdHeader/>
     <Module/>
+    <Tips/>
     <div class="contents">
       <transition name="home">
         <router-view/>
@@ -14,6 +15,7 @@
 
 <script>
 import Module from './components/Module.vue'
+import Tips from './components/Tips.vue'
 import CxdHeader from './components/CxdHeader.vue'
 import Footer from './components/Footer.vue'
 import SideComponent from './components/SideComponent.vue'
@@ -27,7 +29,8 @@ export default {
     CxdHeader,
     Footer,
     SideComponent,
-    Module
+    Module,
+    Tips
   },
   mounted(){
       window.addEventListener('scroll',this.handleScroll,true)

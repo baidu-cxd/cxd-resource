@@ -83,9 +83,9 @@ export function objectFilter(objects) {
       // 默认背景图也就是下载链接数组的第一位
       object.img = object.src[0].link
       // 如果下载链接的第一位是 pptx/keynote 之类的文件的话，显示成默认图标
-      if (object.src[0].kind === '.ppt' || object.src[0].kind === '.pptx'){
+      if (object.src[0].kind.indexOf('.ppt') > -1){
         object.img = 'https://baiduyun-guideline.cdn.bcebos.com/public/ppt.png'
-      } else if (object.src[0].kind === '.key' ||object.src[0].kind === '.keynote') {
+      } else if (object.src[0].kind.indexOf('.key') > -1) {
         object.img = 'https://baiduyun-guideline.cdn.bcebos.com/public/keynote.png'
       }
       // 如果是图片文件，生成一个缩略预览图

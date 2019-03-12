@@ -4,9 +4,11 @@
             <img :src="object.img" alt="">
         </div>
         <p class="name">{{object.name}}</p>
-        <a  class="download" v-if="isDownload(object.src[0].kind)" :href="object.src[0].link"></a>
+        <a  class="download" v-if="isDownload(object.src[0].kind)" :href="object.src[0].link"
+        @click="openTips(object.src[0].kind)" ></a>
         <div class="click" v-else @click="openModule()"></div>
         <div class="full-name" v-if="isDownload(object.src[0].kind)"><p>下载：{{object.name}}</p></div>
+        <a target="_blank"  v-if="hasPassword(object.src[0].kind)" class='password' href="http://wiki.baidu.com/pages/viewpage.action?pageId=710798000">获得密码></a>
     </div>
 </template>
 
@@ -21,10 +23,17 @@ export default {
         }
     },
     methods: {
-        openModule(){
-            this.$store.state.details = this.object
+        hasPassword(kind) {
+          if (kind.indexOf('@cipher') > -1 ||kind.indexOf('@加密') > -1 ) {
+            return true
+          } else {
+            return false
+          }
         },
-        isDownload(kind){
+        openModule() {
+          this.$store.state.details = this.object
+        },
+        isDownload(kind) {
             // 1: 根据 bucket 判断
 
             //const bucket = this.$route.params.pathMatch
@@ -35,12 +44,17 @@ export default {
             //}
 
             // 2: 根据文件类型判断( ppt/pptx/key)
-            if (kind == '.ppt' || kind == '.pptx' || kind == '.key') {
+            if (kind.indexOf('.ppt') > -1 || kind.indexOf('.key') > -1) {
               return true
             } else {
               return false
             }
 
+        },
+        openTips(kind) {
+          if (kind.indexOf('@cipher') > -1 || kind.indexOf('@加密') > -1){
+             this.$store.state.tips = '有密码'
+          }
         }
     }
 }
@@ -80,6 +94,33 @@ export default {
       transform translateY(0)
       transition .4s all ease-in-out
       opacity 1
+    .password
+      transform translateY(0)
+      transition .4s all ease-in-out
+      opacity 1
+  .password
+    transition .4s all ease-in-out
+    display block
+    position absolute
+    z-index 103
+    top 6px
+    right 6px
+    width 72px
+    height 28px
+    background-color rgba(0,0,0,.05)
+    border-radius 2px
+    opacity 0
+    transform translateY(-10px)
+    color #666
+    font-size 12px
+    line-height 26px
+    padding-left 8px
+    box-sizing border-box
+    border 1px solid rgba(0,0,0,0)
+    &:hover
+      color #333
+      background-color rgba(0,0,0,0)
+      border 1px solid rgba(0,0,0,.1)
   .full-name
     position absolute
     opacity 0
@@ -90,7 +131,7 @@ export default {
     padding 4px
     min-height 20px
     z-index 10
-    background-color rgba(0,0,0,.8)
+    background-color rgba(0,0,0,.7)
     transform translateY(20px)
     border-radius 4px
     p
@@ -125,6 +166,7 @@ export default {
       right 0
       top 50%
       transform translateY(-50%)
+    
 
 </style>
 
