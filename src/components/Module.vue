@@ -11,7 +11,12 @@
               <div class="windows">
                   <div class="img-content"><img :src="item.src[0].link" alt=""></div>
                   <h4>{{item.name}}</h4>
-                  <a :href="item.src[0].link" class="button">下 载</a>
+                  <div class="download-content">
+                    <div class="download-list" v-for="(src) in item.src" v-bind:key="src.kind">
+                      <p>{{src.kind}}</p>
+                      <a :href="src.link" class="button">下载</a>
+                    </div>
+                  </div>
               </div>
           </div>
       </div>
@@ -62,9 +67,9 @@ export default {
         cursor pointer
         opacity 1
         div.left 
-          transform translate(-50%,-50%) rotate(-45deg)
+          // transform translate(-50%,-50%) rotate(-45deg)
         div.right
-          transform translate(-50%,-50%) rotate(-135deg) 
+          // transform translate(-50%,-50%) rotate(-135deg) 
       div
         position absolute
         top 50%
@@ -91,8 +96,8 @@ export default {
     .windows-content
       z-index 2
       position absolute
-      width 700px
-      height 460px
+      width 860px
+      height 480px
       left 50%
       top 50%
       transform translate(-50%,-50%)
@@ -102,42 +107,64 @@ export default {
         background-color #f5f5f5
         border-radius 1px
         overflow hidden
+        .download-content
+          width 200px
+          height 100%
+          border-left 1px solid #ebebeb
+          position absolute
+          top 0
+          right 0
+          box-sizing border-box
+          padding 20px
+          .download-list
+            width 100%
+            padding 20px 0
+            border-bottom 1px solid #ebebeb
+            height 40px
+            p
+              line-height 40px
+              float left
+              display block
+              font-size 14px
+              margin 0
+            a.button
+              display block
+              line-height 30px
+              font-size 14px
+              color #666
+              float right
+              margin 0
+              width 60px
+              height 30px
+              margin 5px 0
+              font-size 13px
+              background-color #ebebeb
+              text-align center
+              border-radius 2px
+              transition .2s all ease-in-out
+              &:hover
+                background-color #ddd
+                color #000
         .img-content
           width 600px
-          height 340px
-          margin 80px auto 0
+          height 380px
+          margin 80px 20px 20px 20px
           box-sizing border-box
+          // background-color #000
           img
+            max-height 380px
             height 100%
             display block
             margin auto
+            max-width 380px
         h4
           font-size 16px
           font-weight 500
           line-height 80px
           position absolute
           top 0
-          left 40px
+          left 20px
           margin 0
-        .button
-          display block
-          width 40px
-          height 32px
-          background-color #ebebeb
-          border-radius 2px
-          color #000
-          line-height 32px
-          text-align center
-          position absolute
-          top 20px
-          right 20px
-          padding 0 20px
-          font-size 14px
-          transition .2s all ease-in-out
-          &:hover
-            background-color #000
-            color #fff
-            cursor pointer
 
 // 动画
 

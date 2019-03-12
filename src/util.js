@@ -42,7 +42,7 @@ export function objectFilter(objects) {
           resolvedListObjects.map(item=>{
             if (item.name === object.name && item.folder === object.folder) {
               hasTheSameName = true
-              item.src.push(object.src) // 添加一个 src 数据进去
+              item.src.push(object.src[0]) // 添加一个 src 数据进去
             }
           })
         }
@@ -51,8 +51,35 @@ export function objectFilter(objects) {
         } 
     }
     )
+    // console.log(resolvedListObjects)
     // 生成预览图
     resolvedNameObjects.map(object=>{
+      // 排序函数
+      let sortSrc = _.sortBy(object.src, 
+        function(src){ 
+          let indexNum = 5
+          // 按照后缀类型排序
+          switch(src.kind){
+            case '.svg':  // svg 优先 0
+              indexNum = 0;
+              break;
+            case '@2x.png':  // 2倍 png 优先 1
+              indexNum = 1;
+              break;
+            case '@2x.jpg':  // 2倍 jpg 优先 2
+              indexNum = 2;
+              break;
+            case '.png':  // png 优先 3
+              indexNum = 3;
+              break;
+            case '.jpg':  // jpg 优先 4
+              indexNum = 4;
+              break;
+          }
+          return indexNum
+        });
+      //console.log(sortSrc)
+      object.src = sortSrc
       // 默认背景图也就是下载链接数组的第一位
       object.img = object.src[0].link
       // 如果下载链接的第一位是 pptx/keynote 之类的文件的话，显示成默认图标
@@ -61,11 +88,11 @@ export function objectFilter(objects) {
       } else if (object.src[0].kind === '.key' ||object.src[0].kind === '.keynote') {
         object.img = 'https://baiduyun-guideline.cdn.bcebos.com/public/keynote.png'
       }
-      // 如果是图片文件，生成一个预览图
+      // 如果是图片文件，生成一个缩略预览图
       if (object.src[0].kind === '.jpg') {
         object.img = object.img + '@w_150'
       }
-    })
+    })  
     return resolvedListObjects
   }
 

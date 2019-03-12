@@ -4,9 +4,9 @@
             <img :src="object.img" alt="">
         </div>
         <p class="name">{{object.name}}</p>
-        <a  class="download" v-if="isDownload()" :href="object.src[0].link"></a>
+        <a  class="download" v-if="isDownload(object.src[0].kind)" :href="object.src[0].link"></a>
         <div class="click" v-else @click="openModule()"></div>
-        <div class="full-name" v-if="isDownload()"><p>{{object.name}}</p></div>
+        <div class="full-name" v-if="isDownload(object.src[0].kind)"><p>下载：{{object.name}}</p></div>
     </div>
 </template>
 
@@ -24,13 +24,23 @@ export default {
         openModule(){
             this.$store.state.details = this.object
         },
-        isDownload(){
-            const bucket = this.$route.params.pathMatch
-            if (bucket === 'ppt') {
-                return true
+        isDownload(kind){
+            // 1: 根据 bucket 判断
+
+            //const bucket = this.$route.params.pathMatch
+            //if (bucket === 'ppt') {
+                //return true
+            //} else {
+                //return false
+            //}
+
+            // 2: 根据文件类型判断( ppt/pptx/key)
+            if (kind == '.ppt' || kind == '.pptx' || kind == '.key') {
+              return true
             } else {
-                return false
+              return false
             }
+
         }
     }
 }
