@@ -131,7 +131,7 @@ export default {
     padding 4px
     min-height 20px
     z-index 10
-    background-color rgba(0,0,0,.7)
+    background-color rgba(0,0,0,.8)
     transform translateY(20px)
     border-radius 4px
     p
