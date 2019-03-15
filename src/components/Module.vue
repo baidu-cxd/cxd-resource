@@ -96,7 +96,7 @@ export default {
     .windows-content
       z-index 2
       position absolute
-      width 860px
+      width 900px
       height 480px
       left 50%
       top 50%
@@ -108,7 +108,8 @@ export default {
         border-radius 1px
         overflow hidden
         .download-content
-          width 200px
+          overflow-y scroll
+          width 240px
           height 100%
           border-left 1px solid #ebebeb
           position absolute

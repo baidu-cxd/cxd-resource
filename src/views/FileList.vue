@@ -95,8 +95,11 @@ export default {
             const thisBucketName = this.$route.params.pathMatch
             // 计算出 bucket 的名称
             const bucketName = BucketName + '-' + thisBucketName; 
-            // 获得文件列表         
-            api.listObjects(bucketName).then(data => {
+            // 获得文件列表  
+            const options = {
+                maxKeys: 1000,
+            };        
+            api.listObjects(bucketName, options).then(data => {
                 // 生成单个文件的下载链接
                 data.forEach(object => {
                     object.src = 'http://' + bucketName + CDNHost + object.key; 
