@@ -40,6 +40,7 @@ export default {
     data() {
         return {
             dataList: [],
+            lastMarker: '',
             folder: 'all',
             search: '',
         }
@@ -58,6 +59,19 @@ export default {
         }
     },
     methods: {
+        getData(marker) {
+            let options = {
+              maxKeys: 1000,
+              marker: marker || ''
+            }
+            api.listObjects(this.bucketName, options).then(data => {
+              this.dataList = this.dataList.concat(data)
+              // console.log(data)
+              if (data.length === 1000) {
+                this.getData(data[999].key)
+              }
+            });    
+        },
         fileList() {
           // 计算出 bucket 的名称
           return objectFilter(this.dataList, this.bucketName, CDNHost)
@@ -105,17 +119,7 @@ export default {
             return 'animation-delay:' + (20 * 20 ) + 'ms'
         },
         initData() {
-            // 创建循环获取所有文件
-            for (let i = 0; i < 1; i++){
-              let start = 1000 * (i +1)
-              let options = {
-                maxKeys: 1000,
-                marker: start.toString()
-              }
-              api.listObjects(this.bucketName, options).then(data => {
-                this.dataList = this.dataList.concat(data)
-              });
-            }      
+            this.getData()    
         }
     }
 }
