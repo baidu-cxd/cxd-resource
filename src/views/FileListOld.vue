@@ -7,7 +7,7 @@
         @click="changeFloder('all')">
           全部
       </div>
-      <div v-for="(item) in folderList()" 
+      <div v-for="(item) in folderList" 
         v-bind:key="item.name" class="folder-item"
         :class="isFloderActive(item.key)"
         @click="changeFloder(item.key)">
@@ -21,7 +21,7 @@
     <div class="file-list-content" 
       name="list" :class="resolveClass()">
       <div class="file-content"
-       v-for="(file,i) in fileList()"
+       v-for="(file,i) in fileList"
        v-bind:key="file.key"
        v-show ="isFloder(file.folder) && isSearch(file.name)"
        :style="resolveStyle(i)">
@@ -39,7 +39,8 @@ import {floderFilter,objectFilter} from '@/util';
 export default {
     data() {
         return {
-            dataList: [],
+            fileList: [],
+            folderList: [],
             folder: 'all',
             search: '',
         }
@@ -50,21 +51,7 @@ export default {
     components: {
         FileItem
     },
-    computed: {
-        bucketName(){
-          const thisBucketName = this.$route.params.pathMatch
-          const bucketName = BucketName + '-' + thisBucketName; 
-          return bucketName
-        }
-    },
     methods: {
-        fileList() {
-          // 计算出 bucket 的名称
-          return objectFilter(this.dataList, this.bucketName, CDNHost)
-        },
-        folderList() {
-          return floderFilter(this.dataList)
-        },
         changeFloder(a){
           this.folder = a
         },
@@ -105,17 +92,40 @@ export default {
             return 'animation-delay:' + (20 * 20 ) + 'ms'
         },
         initData() {
-            // 创建循环获取所有文件
-            for (let i = 0; i < 1; i++){
-              let start = 1000 * (i +1)
-              let options = {
+            const thisBucketName = this.$route.params.pathMatch
+            // 计算出 bucket 的名称
+            const bucketName = BucketName + '-' + thisBucketName; 
+            // 获得文件列表  
+            const options = {
                 maxKeys: 1000,
-                marker: start.toString()
-              }
-              api.listObjects(this.bucketName, options).then(data => {
-                this.dataList = this.dataList.concat(data)
-              });
-            }      
+            };        
+            api.listObjects(bucketName, options).then(data => {
+                // 生成单个文件的下载链接
+                data.forEach(object => {
+                    object.src = 'http://' + bucketName + CDNHost + object.key; 
+                });
+                // 在文件中排除并获得文件夹
+                // 文件夹属性的数据
+                // name: 文件夹名称，用于显示成易读的文本
+                // key: 文件夹数据原名
+                this.folderList = floderFilter(data)
+                // 整理单个文件的数据结构
+                // name: 名称
+                // kind: 类型
+                // folder : 字文件夹名
+                // src: 下载链接，为一个对象，里面与各种不同的文件类型，第一个数据为 kind 第二个数据为 link
+                //       .svg/eps  :  矢量文件
+                //       @2x.jpg   :  倍率文件
+                //       @w.jpg    :  反白
+                //       @b.jpg    :  蓝色文件
+                // img: 展示略缩图
+                // key: 文件原始属性，包括 floder 和 name 的属性
+                // password: 伪前端密码
+                const filelist = objectFilter(data)
+                this.fileList = filelist;
+                // console.log(this.folderList)
+                // (this.fileList)
+            });
         }
     }
 }

@@ -15,13 +15,15 @@ export function floderFilter(objects) {
   return folders
 }
 
-export function objectFilter(objects) {
+export function objectFilter(objects, bucketName, CDNHost) {
     // 处理文件名的数组
     let resolvedNameObjects = []
     // 集合同名文件的数组
     let resolvedListObjects = []
     // 处理文件名
     objects.map(object=>{
+      // 链接预处理
+      object.src = 'http://' + bucketName + CDNHost + object.key;
       if (!object.key.endsWith('/')) {
         // 获得 name 和 src
         const data = resolveObjectName(object.key)
