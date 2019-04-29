@@ -89,6 +89,8 @@ export function objectFilter(objects, bucketName, CDNHost) {
         object.img = 'https://baiduyun-guideline.cdn.bcebos.com/public/ppt.png'
       } else if (object.src[0].kind.indexOf('.key') > -1) {
         object.img = 'https://baiduyun-guideline.cdn.bcebos.com/public/keynote.png'
+      } else if (object.src[0].kind.indexOf('.pdf') > -1) {
+        object.img = 'https://cxd-public.cdn.bcebos.com/cxd-guide%2Fpdf.png'
       }
       // 如果是图片文件，生成一个缩略预览图
       if (object.src[0].kind === '.jpg') {

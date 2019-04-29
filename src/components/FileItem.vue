@@ -19,7 +19,7 @@ export default {
     },
     props: {
         object: {
-            default: 'default'
+            default: {}
         }
     },
     methods: {
@@ -44,7 +44,7 @@ export default {
             //}
 
             // 2: 根据文件类型判断( ppt/pptx/key)
-            if (kind.indexOf('.ppt') > -1 || kind.indexOf('.key') > -1) {
+            if (kind.indexOf('.ppt') > -1 || kind.indexOf('.key') > -1 || kind.indexOf('.pdf') > -1) {
               return true
             } else {
               return false

@@ -145,6 +145,10 @@ export default {
       .file-content
         width 300px
         height 260px
+    &.bucket-logo-acu
+      .file-content
+        width 280px
+        height 220px
   .file-content
     opacity 1
     //transform translateY(0px)

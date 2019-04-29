@@ -96,7 +96,7 @@ export default {
     transform translateY(-50%)
     top 50% 
     img 
-      height  20px
+      height  18px
       transform rotate(90deg)
 @keyframes sidebar-fade-left
   0%

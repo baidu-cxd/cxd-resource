@@ -27,8 +27,12 @@ export const BucketDataList = {
         ],
     brand : [
         {
+            bucket: 'logo-acu',
+            name: '智能云 logo',
+        },
+        {
             bucket: 'logo',
-            name: 'Logo 资源',
+            name: '客户 logo',
         },
         {
             bucket: 'ppt',
